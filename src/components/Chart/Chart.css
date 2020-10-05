@@ -1,0 +1,10 @@
+.chart-conatiner {
+  display: flex;
+  justify-self: center;
+  width: 60%;
+}
+@media (max-width: 770px) {
+  .chart-conatiner {
+    width: 100%;
+  }
+}
