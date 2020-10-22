@@ -6,20 +6,23 @@ import './Cards.css';
 const cardsData = {
     infected: {
         title: "Infected",
-        text: "No. of active cases of COVID-19"
+        text: "No. of active cases of COVID-19",
+        valText: 'confirmed'
     },
     recovered: {
         title: "Recovered",
-        text: "No. of recoveries from COVID-19"
+        text: "No. of recoveries from COVID-19",
+        valText: 'recovered'
     },
     deaths: {
         title: "Deaths",
-        text: "No. of deaths caused by COVID-19"
+        text: "No. of deaths caused by COVID-19",
+        valText: 'deaths'
     }
 };
 
 function Cards(props) {
-    const { data: { confirmed, deaths, recovered, lastUpdate } } = props;
+    const { data, data: { confirmed, deaths, recovered, lastUpdate } } = props;
     if (!confirmed || !deaths || !recovered) return 'Loading...';
     const date = new Date(lastUpdate).toDateString();
     return (
@@ -29,12 +32,13 @@ function Cards(props) {
                     Object.keys(cardsData).map((item, index) => {
                         return (
                             <Grid item xs={12} md={3} key={index} component={Card} className={`card ${item}`}>
+                                {console.log(cardsData[item].valText)}
                                 <CardContent>
                                     <Typography color="textSecondary" gutterBottom>{cardsData[item].title}</Typography>
                                     <Typography variant="h6">
                                         <CountUp
                                             start={0}
-                                            end={confirmed.value}
+                                            end={data[cardsData[item].valText].value}
                                             duration={2.5}
                                             separator=","
                                         />
